@@ -14,7 +14,10 @@ from db import obtener_conexion
 # Inicialización de la aplicación Flask
 app = Flask(__name__)
 # Habilitamos CORS para permitir peticiones desde el frontend
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5173",
+    "https://to-do-list-marcosmartos.netlify.app/"
+])
 
 @app.route("/")
 def home():
