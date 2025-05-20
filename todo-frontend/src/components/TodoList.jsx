@@ -9,20 +9,29 @@ function TodoList() {
   const [editedTitle, setEditedTitle] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/todos").then((res) => setTodos(res.data));
+    axios
+      .get("https://to-do-list-app-production-2f2f.up.railway.app/todos")
+      .then((res) => setTodos(res.data));
   }, []);
 
   const addTodo = () => {
     if (!title.trim()) return;
-    axios.post("http://localhost:5000/todos", { title }).then((res) => {
-      setTodos([...todos, res.data]);
-      setTitle("");
-    });
+    axios
+      .post("https://to-do-list-app-production-2f2f.up.railway.app/todos", {
+        title,
+      })
+      .then((res) => {
+        setTodos([...todos, res.data]);
+        setTitle("");
+      });
   };
 
   const toggleTodo = (id, completed) => {
     axios
-      .put(`http://localhost:5000/todos/${id}`, { completed: !completed })
+      .put(
+        `https://to-do-list-app-production-2f2f.up.railway.app/todos/${id}`,
+        { completed: !completed }
+      )
       .then(() => {
         setTodos(
           todos.map((todo) =>
@@ -33,9 +42,13 @@ function TodoList() {
   };
 
   const deleteTodo = (id) => {
-    axios.delete(`http://localhost:5000/todos/${id}`).then(() => {
-      setTodos(todos.filter((todo) => todo.id !== id));
-    });
+    axios
+      .delete(
+        `https://to-do-list-app-production-2f2f.up.railway.app/todos/${id}`
+      )
+      .then(() => {
+        setTodos(todos.filter((todo) => todo.id !== id));
+      });
   };
 
   const handleKeyPress = (e) => {
@@ -52,10 +65,13 @@ function TodoList() {
     if (!editedTitle.trim() || !editingTodo) return;
 
     axios
-      .put(`http://localhost:5000/todos/${editingTodo.id}`, {
-        title: editedTitle,
-        completed: editingTodo.completed,
-      })
+      .put(
+        `https://to-do-list-app-production-2f2f.up.railway.app/todos/${editingTodo.id}`,
+        {
+          title: editedTitle,
+          completed: editingTodo.completed,
+        }
+      )
       .then(() => {
         setTodos(
           todos.map((todo) =>
